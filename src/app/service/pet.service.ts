@@ -11,6 +11,7 @@ import { Pet } from '../model/pet';
   providedIn: 'root'
 })
 export class PetService {
+ 
 
   url: string;
 
@@ -19,6 +20,23 @@ export class PetService {
   }
 
   getPets(): Observable<any> {
-    return this.http.get<Pet[]>(this.url).pipe(map(response => response.sort((p1: Pet, p2: Pet) => p1.name.toLocaleLowerCase > p2.name.toLocaleLowerCase ? 1 : -1)));
+    //return this.http.get<Pet[]>(this.url);
+    return this.http.get<Pet[]>(this.url).pipe(map(response => response.sort((p1: Pet, p2: Pet) => p1.name.localeCompare(p2.name))));
+  }
+
+  getPetByName(name: string): Observable<any> {
+    return this.http.get<Pet>(this.url+'/'+name);
+  }
+
+  addPet(pet: Pet) {
+    return this.http.post<Pet>(this.url,pet);
+  }
+
+  deletePet(id: number): void{
+    this.http.delete(this.url+'/'+id);
+  }
+
+  sendMessage(name: string){
+    return this.http.post<string>(this.url+'/sendText',name);
   }
 }
