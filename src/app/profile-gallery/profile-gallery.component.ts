@@ -33,22 +33,21 @@ export class ProfileGalleryComponent implements OnInit {
     this.petService.getPets().subscribe(pets => this.pets = pets);
   }
 
-  addPet(pet: Pet) {
-    this.petService.addPet(pet).subscribe(() => this.getPets());
+  addPet() {
+    this.petService.addPet(this.addPetForm.value).subscribe(() => this.getPets());
   }
 
   selectPet(pet: Pet) {
     this.selectedPet = pet;
   }
 
-  deletePet() {
-    this.petService.deletePet(this.selectedPet.id);
+  deletePet(id: number) {
+    this.petService.deletePet(id).subscribe( () => this.selectedPet = null );
     this.getPets();
-    this.selectedPet = null;
   }
 
   onSubmit(): void {
-    this.addPet(this.addPetForm.value);
+    this.addPet();
     this.addPetForm.reset();
   }
 

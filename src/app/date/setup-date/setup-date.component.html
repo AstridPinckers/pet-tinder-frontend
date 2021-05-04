@@ -1,4 +1,4 @@
-<div class="container modalPopup">
+<div class="container modalPopup" *ngIf="pet">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="big-dialog">
@@ -8,13 +8,14 @@
                     </div>
                     <h3>{{pet.name}}</h3>
                     <p>{{pet.profileText}}</p>
+                    <p>Popularity <span class="badge">{{pet.popularity | popularity}}</span></p>
                 </div>
                 <div class="clearfix">
-                    <a class="btn btn-default">Cancel</a>
+                    <a class="btn btn-default" (click)="goBack()">Cancel</a>
                     <form [formGroup]="sendTextForm">
                         <label>Name</label>
                         <input type="text" class="form-control" formControlName="name">
-                        <button type="submit" class="btn btn-primary pull-right" >Let's Play</button>
+                        <button type="submit" class="btn btn-primary pull-right" (click) = "setUpDate()">Let's Play</button>
                     </form>
                 </div>
             </div>

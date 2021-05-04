@@ -32,11 +32,15 @@ export class PetService {
     return this.http.post<Pet>(this.url,pet);
   }
 
-  deletePet(id: number): void{
-    this.http.delete(this.url+'/'+id);
+  deletePet(id: number){
+    return this.http.delete(this.url+'/'+id);
   }
 
   sendMessage(name: string){
     return this.http.post<string>(this.url+'/sendText',name);
+  }
+
+  incrementPopularity(name: string){
+    return this.http.get(this.url+'/'+name+'/incrementPopularity');
   }
 }
